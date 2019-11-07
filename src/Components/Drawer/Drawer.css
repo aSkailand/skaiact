@@ -1,6 +1,12 @@
 .drawer {
-
+    
+ 
+   
     display: flex;
     align-items: center;
     height: 100%;
+}
+
+.list{
+    width: 250px !important
 }

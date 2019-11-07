@@ -1,6 +1,8 @@
 .header {
+    background-color: #44606a;
     display: flex;
     justify-content: space-between;
+    border-bottom: 2px solid #446aaa;
 }
 
 .header-left {
@@ -28,4 +30,8 @@
     display: flex;
     align-items: center;
     height: 100%;
+}
+
+h3{
+    color: #dadada;
 }

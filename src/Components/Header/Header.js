@@ -1,7 +1,8 @@
 import React from 'react';
 import './Header.css';
 import Button from '@material-ui/core/Button';
-import Drawer from './Drawer';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import Drawer from '../Drawer/Drawer';
 
 export default class Header extends React.Component {
 
@@ -13,7 +14,6 @@ export default class Header extends React.Component {
             this.buttonList.push(
                 <div className={className + "-container"}>
                     <Button variant="contained" className={className}>
-                        Action {i}
                     </Button>
                 </div>)
         }
@@ -25,8 +25,8 @@ export default class Header extends React.Component {
         return (
             <div className="header-right">
                 <div className="button-0">
-                    <Button variant="contained" className="profile">
-                        My profile
+                    <Button variant="contained" color="primary" size="large" className="profile">
+                    <AccountCircleIcon/>
                 </Button>
                 </div>
             </div>
@@ -36,9 +36,9 @@ export default class Header extends React.Component {
     renderCenterContent() {
         return (
             <div className="header-center">
-                <p>
-                    header center
-                </p>
+                <h3>
+                    Home
+                </h3>
             </div>
         );
     };
