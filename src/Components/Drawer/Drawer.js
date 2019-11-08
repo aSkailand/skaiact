@@ -4,10 +4,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 
 
@@ -38,15 +35,26 @@ export default class TemporaryDrawer extends React.Component{
             onKeyDown={this.toggleDrawer(side, false)}
         >
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
+                    {this.renderListItem('Email', 'mailto: aslakskailand@gmail.com', 'mail')}
+                    {this.renderListItem('Phone', 'tel: +47 401 70 768', 'phone' )}
+                    {this.renderListItem('LinkedIn', 'https://www.linkedin.com/in/aslak-frafjord-skailand-968a6a130', 'web', '_blank')}
+                    {this.renderListItem('LinkedIn', 'https://www.linkedin.com/in/aslak-frafjord-skailand-968a6a130', 'web', '_blank')}
+
             </List>
         </div>
     );
+
+    renderListItem(key,link, icon, target){
+        return(
+            <a href={link} target={target} rel='noopener noreferrer'>
+            <ListItem button key={key}>
+            <i class="material-icons">{icon}</i>
+                <ListItemText primary={key}/>
+            </ListItem>
+             </a>
+        )
+
+    }
 
   
     render(){
