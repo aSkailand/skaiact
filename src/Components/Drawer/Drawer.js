@@ -6,6 +6,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
+import { IconButton } from '@material-ui/core';
 
 
 export default class TemporaryDrawer extends React.Component{
@@ -60,9 +61,9 @@ export default class TemporaryDrawer extends React.Component{
     render(){
         return(
         <div className="drawer">
-            <Button  size='large' variant="contained" onClick={this.toggleDrawer('left', true)}>
+            <IconButton onClick={this.toggleDrawer('left', true)}>
                 <MenuIcon/>
-                </Button>
+                </IconButton>
             <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
                 {this.sideList('left')}
             </Drawer>
