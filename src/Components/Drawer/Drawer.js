@@ -60,7 +60,7 @@ export default class TemporaryDrawer extends React.Component{
     render(){
         return(
         <div className="drawer">
-            <Button size='large' variant="contained" onClick={this.toggleDrawer('left', true)}>
+            <Button  size='large' variant="contained" onClick={this.toggleDrawer('left', true)}>
                 <MenuIcon/>
                 </Button>
             <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>

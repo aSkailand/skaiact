@@ -1,17 +1,16 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
+import TextArea from '@material-ui/core/TextareaAutosize';
+import Card from '@material-ui/core/Card';
 
 function App() {
   return ( 
-    
     <div className="App">
-      <header className="App-header">
-        <h3>Hello! My name is Aslak Frafjord Skailand.
-        </h3>
-        <h4>
-        Contact me! :-)
-        </h4>
-      </header>
+      <div className="card-message">
+        <Card raised={false}>
+          <TextArea className="text-area"rows={3}>Send me a message! :-)</TextArea>
+        </Card>
+      </div>
     </div>
   );
 }

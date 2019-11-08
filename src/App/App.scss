@@ -2,6 +2,10 @@
   text-align: center;
   display: flex;
   justify-content: center;
+  padding: 48px 48px;
+}
+.card-message{
+  width: 200px;
 }
 
 .App-logo {
@@ -9,10 +13,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  max-width: 500px;
   display: flex;
-  flex-direction: column;
   font-size: calc(16px);
   color: white;
 }
