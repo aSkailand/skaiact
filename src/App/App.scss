@@ -1,24 +1,17 @@
 .App {
+  margin: 72px 0px;
   text-align: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 96px 48px;
+  justify-items: center;
 }
 
-
-
-
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
+.please-hire-me{
   display: flex;
-  font-size: calc(16px);
-  color: white;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-
 .App-link {
   color: #09d3ac;
 }

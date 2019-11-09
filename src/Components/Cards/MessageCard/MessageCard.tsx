@@ -14,7 +14,7 @@ export default function MessageCard(){
                 <CardContent>
                     <Typography variant="h5" color="textSecondary">Send me a message! :-)</Typography>
                 <CardContent>
-                    <TextArea className="text-area"rows={5}>...</TextArea>
+                    <TextArea className="text-area"rows={6} placeholder="message..."></TextArea>
                 </CardContent>
                     <CardActions>
                         <Button color="secondary">Submit</Button>

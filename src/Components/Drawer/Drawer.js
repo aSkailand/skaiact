@@ -38,8 +38,6 @@ export default class TemporaryDrawer extends React.Component{
                     {this.renderListItem('Email', 'mailto: aslakskailand@gmail.com', 'mail')}
                     {this.renderListItem('Phone', 'tel: +47 401 70 768', 'phone' )}
                     {this.renderListItem('LinkedIn', 'https://www.linkedin.com/in/aslak-frafjord-skailand-968a6a130', 'web', '_blank')}
-                    {this.renderListItem('LinkedIn', 'https://www.linkedin.com/in/aslak-frafjord-skailand-968a6a130', 'web', '_blank')}
-
             </List>
         </div>
     );
@@ -62,6 +60,7 @@ export default class TemporaryDrawer extends React.Component{
         <div className="drawer">
             <IconButton onClick={this.toggleDrawer('left', true)}>
                 <MenuIcon/>
+
                 </IconButton>
             <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
                 {this.sideList('left')}
