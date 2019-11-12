@@ -22,9 +22,7 @@ export default class MessageCard extends React.Component<Props, State> {
             message: '',
         }
     }
-    componentDidMount(){
-        console.log(this.getItems());
-    }
+ 
 
     handleChange = (event: any) => {
         console.log(this.state.message);
@@ -48,16 +46,16 @@ export default class MessageCard extends React.Component<Props, State> {
     }
 
 
-    getItems = async() => {
-        const response = await fetch('http://localhost:8000/notes/', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-        });
-        return JSON.stringify(response);
-    }
+    // getItems = async() => {
+    //     const response = await fetch('http://localhost:8000/notes/', {
+    //         method: 'GET',
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json'
+    //         },
+    //     });
+    //     return JSON.stringify(response);
+    // }
     render(){
     return(
         <div className="card-message">

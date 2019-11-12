@@ -6,6 +6,10 @@ import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 
+interface Props {
+  routeMessages: () => JSX.Element;
+}
+
 const theme = createMuiTheme({
     palette: {
       primary: {
@@ -17,7 +21,7 @@ const theme = createMuiTheme({
     },
   });
 
-export default class Header extends React.Component {    
+export default class Header extends React.Component<Props> {    
 
     renderRightContent() {
         return (
@@ -32,7 +36,7 @@ export default class Header extends React.Component {
     renderLeftContent() {
         return (
             <div className="header-left">
-                <Drawer />
+                <Drawer routeMessages={this.props.routeMessages}/>
             </div>
         );
     };
@@ -49,10 +53,12 @@ export default class Header extends React.Component {
                             <Typography variant="h6">
                                 Home
                             </Typography>
+                            {this.renderRightContent()}
                         </Toolbar>
                     </AppBar>
                 </ThemeProvider>
             </div>
+            
         );
     }
 }

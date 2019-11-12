@@ -3,12 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'typeface-roboto';
 import App from './App/App';
-import Header from './Components/Header/Header';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
     <div className="frontpage">
-        <Header />
         <App />
     </div>
     , document.getElementById('root'));

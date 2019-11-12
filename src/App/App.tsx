@@ -1,8 +1,10 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.scss';
 import MessageCard from '../Components/Cards/MessageCard/MessageCard';
 import InfoCard from '../Components/Cards/InfoCard/InfoCard';
-import { Container } from '@material-ui/core';
+import { Container, ListItemText } from '@material-ui/core';
+import Header from '../Components/Header/Header';
 
 let aboutMe = `
               My name is Aslak Frafjord Skailand and I am an 25 year old man.
@@ -15,18 +17,48 @@ let joke = `
             Did you know the first French fries weren't actually cooked in France? \n\n They were cooked in Greece.
             `
 
-function App() {
-  return ( 
-    <div className="App">
 
-      <Container maxWidth="sm">
-        <div className="please-hire-me">
-          <InfoCard title="About me" info={aboutMe}/>
-          <InfoCard title="he-he" info={joke} />
-          <MessageCard />
-        </div>
-      </Container>
-    </div>
+export default class App extends React.Component {
+
+  routeTo = (route: string) => {
+    console.log(route);
+  }
+
+  routeMessages = () => {
+    return(
+      <>
+      
+        <Link to='/message'>
+          <ListItemText primary='Messages'/>
+          </Link>
+      </>
+    )
+  }
+
+  render(){
+  return ( 
+    <Router>
+      <div className='App'>
+        <Header routeMessages={this.routeMessages}/>
+          
+          <Switch>
+            <Route exact path='/'>
+              <Container maxWidth='sm'>
+                <div className='please-hire-me'>
+                  <InfoCard title='About me' info={aboutMe}/>
+                  <InfoCard title='he-he' info={joke} />
+                  <MessageCard />
+                </div>
+              </Container>
+            </Route>
+            <Route path='messages'>
+              <MessageCard />
+            </Route>
+          </Switch>
+
+      </div>
+    </Router>
   );
+  }
 }
-export default App;
+

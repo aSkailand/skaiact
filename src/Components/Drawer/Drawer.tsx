@@ -7,19 +7,34 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
 import { IconButton } from '@material-ui/core';
 
+interface Props {
+    routeMessages: () => JSX.Element;
+}
 
-export default class TemporaryDrawer extends React.Component{
-    constructor(props){
+type State = {
+    top: boolean;
+    left: boolean;
+    bottom: boolean;
+    right: boolean;
+    side: string;
+    open: string;
+}
+
+
+export default class TemporaryDrawer extends React.Component<Props, State>{
+    constructor(props: Props){
         super(props);
         this.state = {
             top: false,
             left: false,
             bottom: false,
             right: false,
+            side: '',
+            open: '',
         };
     }
     
-    toggleDrawer = (side, open) => event => {
+    toggleDrawer = (side: any, open: any) => (event: any) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
@@ -27,7 +42,7 @@ export default class TemporaryDrawer extends React.Component{
         this.setState({ ...this.state, [side]: open });
     };
 
-    sideList = side => (
+    sideList = (side: any) => (
         <div
             className="list"
             role="presentation"
@@ -35,6 +50,11 @@ export default class TemporaryDrawer extends React.Component{
             onKeyDown={this.toggleDrawer(side, false)}
         >
             <List>
+                    <ListItem button>
+                        <ListItemText>
+                            {this.props.routeMessages()}
+                        </ListItemText>
+                    </ListItem>
                     {this.renderListItem('Email', 'mailto: aslakskailand@gmail.com', 'mail')}
                     {this.renderListItem('Phone', 'tel: +47 401 70 768', 'phone' )}
                     {this.renderListItem('LinkedIn', 'https://www.linkedin.com/in/aslak-frafjord-skailand-968a6a130', 'web', '_blank')}
@@ -42,11 +62,11 @@ export default class TemporaryDrawer extends React.Component{
         </div>
     );
 
-    renderListItem(key,link, icon, target){
+    renderListItem(key: string, link:string, icon:string, target?:string){
         return(
             <a href={link} target={target} rel='noopener noreferrer'>
             <ListItem button key={key}>
-            <i class="material-icons">{icon}</i>
+            <i className="material-icons">{icon}</i>
                 <ListItemText primary={key}/>
             </ListItem>
              </a>
