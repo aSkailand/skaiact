@@ -23,7 +23,7 @@ function App() {
         <div className="please-hire-me">
           <InfoCard title="About me" info={aboutMe}/>
           <InfoCard title="he-he" info={joke} />
-          <MessageCard/>
+          <MessageCard />
         </div>
       </Container>
     </div>
