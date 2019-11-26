@@ -4,7 +4,7 @@ import { CardContent, Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 
 interface Props {
-    title: string,
+    title?: string,
     info: string,
 }
 

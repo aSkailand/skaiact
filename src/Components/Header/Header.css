@@ -1,4 +1,6 @@
-
+.home-button{
+    float: right;
+}
 .header {
     background-color: rgb(150, 200, 250);
     display: flex;
@@ -14,7 +16,6 @@
 
     display: flex;
     align-items: center;
-    height: 100%;
 
     
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 import './Header.css';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Drawer from '../Drawer/Drawer';
-import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Button } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+import { Redirect } from 'react-router';
 
 interface Props {
   routeMessages: () => JSX.Element;
@@ -21,18 +21,10 @@ const theme = createMuiTheme({
     },
   });
 
-export default class Header extends React.Component<Props> {    
-
-    renderRightContent() {
-        return (
-            <div className="header-right">
-                <IconButton>
-                    <AccountCircleIcon color="inherit"/>
-                </IconButton>
-            </div>
-        );
-    };
-
+export default class Header extends React.Component<Props> {  
+    state = {
+        redirect: false
+    }  
     renderLeftContent() {
         return (
             <div className="header-left">
@@ -41,7 +33,17 @@ export default class Header extends React.Component<Props> {
         );
     };
 
-
+    setRedirect = () => {
+        this.setState({
+            redirect: true
+        })
+      }
+    renderRedirect = () => {
+        if (this.state.redirect) {
+            this.setState({redirect: false});
+            return <Redirect to='/'/>
+        }
+      }
 
     render() {
         return (
@@ -50,10 +52,10 @@ export default class Header extends React.Component<Props> {
                     <AppBar position="fixed">
                         <Toolbar>
                             {this.renderLeftContent()}
-                            <Typography variant="h6">
+                            {this.renderRedirect()}
+                            <Button variant='contained' color='secondary' onClick={this.setRedirect}>
                                 Home
-                            </Typography>
-                            {this.renderRightContent()}
+                            </Button>
                         </Toolbar>
                     </AppBar>
                 </ThemeProvider>

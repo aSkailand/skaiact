@@ -11,21 +11,20 @@ interface Props {
 
 interface State {
     message: string;
+    date: string;
 
 }
-
 
 export default class MessageCard extends React.Component<Props, State> {
     constructor(props: Props){
         super(props);
         this.state = {
             message: '',
+            date: ''
         }
     }
  
-
     handleChange = (event: any) => {
-        console.log(this.state.message);
         this.setState({message: event.target.value});
     }
 
@@ -37,25 +36,13 @@ export default class MessageCard extends React.Component<Props, State> {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({message: this.state.message})
+            body: JSON.stringify({
+                message: this.state.message,
+                date: new Date().toDateString()
+            })
         });
-        console.log({message: this.state.message});
-
-        console.log(JSON.stringify({message: this.state.message}));
-        console.log(response);
     }
 
-
-    // getItems = async() => {
-    //     const response = await fetch('http://localhost:8000/notes/', {
-    //         method: 'GET',
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         },
-    //     });
-    //     return JSON.stringify(response);
-    // }
     render(){
     return(
         <div className="card-message">

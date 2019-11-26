@@ -5,10 +5,11 @@ import MessageCard from '../Components/Cards/MessageCard/MessageCard';
 import InfoCard from '../Components/Cards/InfoCard/InfoCard';
 import { Container, ListItemText } from '@material-ui/core';
 import Header from '../Components/Header/Header';
+import Messages from '../Views/Messages/Messages';
 
 let aboutMe = `
               My name is Aslak Frafjord Skailand and I am an 25 year old man.
-              I have studied computer engineering at the university of Ager for three years, now i currently work as a
+              I have studied computer engineering at the university of Ager for three years, now I currently work as a
               front-end developer at Altibox. This is my website, here you can find my contact info and CV. I will also
               try to post other things that I find interesting! :-)
               `
@@ -28,7 +29,7 @@ export default class App extends React.Component {
     return(
       <>
       
-        <Link to='/message'>
+        <Link to='/messages'>
           <ListItemText primary='Messages'/>
           </Link>
       </>
@@ -46,13 +47,13 @@ export default class App extends React.Component {
               <Container maxWidth='sm'>
                 <div className='please-hire-me'>
                   <InfoCard title='About me' info={aboutMe}/>
-                  <InfoCard title='he-he' info={joke} />
                   <MessageCard />
+                  <InfoCard title='he-he' info={joke} />
                 </div>
               </Container>
             </Route>
-            <Route path='messages'>
-              <MessageCard />
+            <Route path='/messages'>
+              <Messages />
             </Route>
           </Switch>
 
