@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.scss';
 import MessageCard from '../Components/Cards/MessageCard/MessageCard';
 import InfoCard from '../Components/Cards/InfoCard/InfoCard';
-import { Container, ListItemText } from '@material-ui/core';
+import { Container, ListItemText, ListItem, Button } from '@material-ui/core';
 import Header from '../Components/Header/Header';
 import Messages from '../Views/Messages/Messages';
 
@@ -28,10 +28,23 @@ export default class App extends React.Component {
   routeMessages = () => {
     return(
       <>
-      
         <Link to='/messages'>
-          <ListItemText primary='Messages'/>
-          </Link>
+            <ListItem button >
+              <i className="material-icons">feedback</i>
+              <ListItemText primary='Messages'/>
+            </ListItem>
+        </Link>
+      </>
+    )
+  }
+  routeMessagesButton = () => {
+    return(
+      <>
+        <Link to='/messages'>
+          <Button variant='contained'>
+            Messages
+          </Button>
+        </Link>
       </>
     )
   }
@@ -40,15 +53,15 @@ export default class App extends React.Component {
   return ( 
     <Router>
       <div className='App'>
-        <Header routeMessages={this.routeMessages}/>
+        <Header routeMessages={this.routeMessages} routeMessagesButton={this.routeMessagesButton}/>
           
-          <Switch>
+          <Switch>)
             <Route exact path='/'>
               <Container maxWidth='sm'>
                 <div className='please-hire-me'>
-                  <InfoCard title='About me' info={aboutMe}/>
+                  <InfoCard title='React is cool' info={aboutMe}/>
                   <MessageCard />
-                  <InfoCard title='he-he' info={joke} />
+                  <InfoCard title='Joke' info={joke} />
                 </div>
               </Container>
             </Route>

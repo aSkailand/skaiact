@@ -1,13 +1,14 @@
 import React from 'react';
-import './Header.css';
+import './Header.scss';
 import Drawer from '../Drawer/Drawer';
-import { AppBar, Toolbar, Button } from '@material-ui/core';
+import { AppBar, Toolbar, Button, ListItem, List } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { Redirect } from 'react-router';
 
 interface Props {
   routeMessages: () => JSX.Element;
+  routeMessagesButton: () => JSX.Element;
 }
 
 const theme = createMuiTheme({
@@ -47,15 +48,20 @@ export default class Header extends React.Component<Props> {
 
     render() {
         return (
-            <div>
+            <div className="header">
                 <ThemeProvider theme={theme}>
                     <AppBar position="fixed">
                         <Toolbar>
                             {this.renderLeftContent()}
                             {this.renderRedirect()}
-                            <Button variant='contained' color='secondary' onClick={this.setRedirect}>
+                            <div className="header-button">
+                            <Button variant='contained' onClick={this.setRedirect}>
                                 Home
                             </Button>
+                            </div>
+                            <div className="header-button">
+                                {this.props.routeMessagesButton()}
+                            </div>
                         </Toolbar>
                     </AppBar>
                 </ThemeProvider>

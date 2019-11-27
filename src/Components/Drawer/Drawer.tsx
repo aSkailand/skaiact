@@ -1,5 +1,5 @@
 import React from 'react';
-import './Drawer.css';
+import './Drawer.scss';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -39,7 +39,9 @@ export default class TemporaryDrawer extends React.Component<Props, State>{
             return;
         }
 
-        this.setState({ ...this.state, [side]: open });
+        this.setState({ 
+            ...this.state,
+            [side]: open });
     };
 
     sideList = (side: any) => (
@@ -50,11 +52,7 @@ export default class TemporaryDrawer extends React.Component<Props, State>{
             onKeyDown={this.toggleDrawer(side, false)}
         >
             <List>
-                    <ListItem button>
-                        <ListItemText>
-                            {this.props.routeMessages()}
-                        </ListItemText>
-                    </ListItem>
+                    {this.props.routeMessages()}
                     {this.renderListItem('Email', 'mailto: aslakskailand@gmail.com', 'mail')}
                     {this.renderListItem('Phone', 'tel: +47 401 70 768', 'phone' )}
                     {this.renderListItem('LinkedIn', 'https://www.linkedin.com/in/aslak-frafjord-skailand-968a6a130', 'web', '_blank')}

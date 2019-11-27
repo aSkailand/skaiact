@@ -29,7 +29,7 @@ export default class MessageCard extends React.Component<Props, State> {
     }
 
     handleSubmit = async() => {
-        const response = await fetch('http://localhost:8000/notes', {
+        await fetch('http://localhost:8000/notes', {
             mode: 'cors',   
             method: 'POST',
             headers: {
