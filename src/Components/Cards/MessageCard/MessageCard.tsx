@@ -1,6 +1,6 @@
 import React from 'react';
 import '../Cards.scss'
-import { CardContent, CardActions, Typography } from '@material-ui/core';
+import { CardContent, CardActions, Typography, Snackbar } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import TextArea from '@material-ui/core/TextareaAutosize';
@@ -12,6 +12,7 @@ interface Props {
 interface State {
     message: string;
     date: string;
+    snackbar: boolean;
 
 }
 
@@ -20,12 +21,18 @@ export default class MessageCard extends React.Component<Props, State> {
         super(props);
         this.state = {
             message: '',
-            date: ''
+            date: '',
+            snackbar: false, 
         }
     }
+
  
     handleChange = (event: any) => {
         this.setState({message: event.target.value});
+    }
+
+    handleClose = () => {
+        this.setState({snackbar: false});
     }
 
     handleSubmit = async() => {
@@ -40,12 +47,26 @@ export default class MessageCard extends React.Component<Props, State> {
                 message: this.state.message,
                 date: new Date().toDateString()
             })
+        }).then(() => {
+            this.setState({
+                message: '',
+                snackbar: true,
+            });
+
         });
     }
 
     render(){
     return(
         <div className="card-message">
+            <Snackbar anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+                }}
+            open={this.state.snackbar}
+            autoHideDuration={3000}
+            onClose={this.handleClose}
+            message="Message sent!"/>
             <Card raised={true}>
                 <CardContent>
                     <Typography variant="h5" color="textSecondary">Send me a message! :-)</Typography>

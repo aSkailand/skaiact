@@ -41,7 +41,7 @@ export default class App extends React.Component {
     return(
       <>
         <Link to='/messages'>
-          <Button variant='contained'>
+          <Button variant='contained' color='secondary'>
             Messages
           </Button>
         </Link>
