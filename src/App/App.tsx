@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { fetchJoke } from '../actions';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.scss';
 import MessageCard from '../Components/Cards/MessageCard/MessageCard';
@@ -6,6 +8,7 @@ import InfoCard from '../Components/Cards/InfoCard/InfoCard';
 import { Container, ListItemText, ListItem, Button } from '@material-ui/core';
 import Header from '../Components/Header/Header';
 import Messages from '../Views/Messages/Messages';
+import { JodResponse} from '../interface'
 
 let aboutMe = `
               My name is Aslak Frafjord Skailand and I am an 25 year old man.
@@ -18,8 +21,17 @@ let joke = `
             Did you know the first French fries weren't actually cooked in France? \n\n They were cooked in Greece.
             `
 
+type Props = {
+  payload: string,
+  loading: boolean,
+  getJoke: Function,
+  json: JodResponse
+}
 
-export default class App extends React.Component {
+class App extends React.Component<Props, {}>{
+  componentDidMount(){
+    console.log(this.props.getJoke());
+  }
 
   routeTo = (route: string) => {
     console.log(route);
@@ -37,6 +49,7 @@ export default class App extends React.Component {
       </>
     )
   }
+
   routeMessagesButton = () => {
     return(
       <>
@@ -50,29 +63,42 @@ export default class App extends React.Component {
   }
 
   render(){
-  return ( 
-    <Router>
-      <div className='App'>
-        <Header routeMessages={this.routeMessages} routeMessagesButton={this.routeMessagesButton}/>
-          
-          <Switch>)
-            <Route exact path='/'>
-              <Container maxWidth='sm'>
-                <div className='please-hire-me'>
-                  <InfoCard title='React is cool' info={aboutMe}/>
-                  <MessageCard />
-                  <InfoCard title='Joke' info={joke} />
-                </div>
-              </Container>
-            </Route>
-            <Route path='/messages'>
-              <Messages />
-            </Route>
-          </Switch>
+    return ( 
+      <Router>
+        <div className='App'>
+          <Header routeMessages={this.routeMessages} routeMessagesButton={this.routeMessagesButton}/>
+            
+            <Switch>)
+              <Route exact path='/'>
+                <Container maxWidth='sm'>
+                  <div className='please-hire-me'>
+                    <InfoCard title='React is cool' info={aboutMe}/>
+                    <MessageCard />
+                    {this.props.loading ?
+                      null :
+                      <InfoCard title={this.props.json.contents.jokes[0].joke.title} info={this.props.json.contents.jokes[0].joke.text}/>}
+                  </div>
+                </Container>
+              </Route>
+              <Route path='/messages'>
+                <Messages />
+              </Route>
+            </Switch>
 
-      </div>
-    </Router>
-  );
+        </div>
+      </Router>
+    );
   }
 }
 
+const mapStateToProps = (state: any) => {
+  return{
+    payload: state.payload,
+    loading: state.loading,
+    json: state.json
+  }
+}
+
+const mapDispatchToProps = { getJoke: fetchJoke}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
