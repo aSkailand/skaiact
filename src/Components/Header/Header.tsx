@@ -8,19 +8,9 @@ import { Redirect } from 'react-router';
 
 interface Props {
   routeMessages: () => JSX.Element;
-  routeMessagesButton: () => JSX.Element;
+  createRouteButton: (linkTo: string, title: string) => JSX.Element;
 }
 
-const theme = createMuiTheme({
-    palette: {
-      primary: {
-        main: '#039be5',
-      },
-      secondary: {
-        main: '#ef5350',
-      },
-    },
-  });
 
 export default class Header extends React.Component<Props> {  
     state = {
@@ -49,22 +39,20 @@ export default class Header extends React.Component<Props> {
     render() {
         return (
             <div className="header">
-                <ThemeProvider theme={theme}>
+                
                     <AppBar position="fixed">
                         <Toolbar>
                             {this.renderLeftContent()}
                             {this.renderRedirect()}
                             <div className="header-button">
-                            <Button variant='contained' onClick={this.setRedirect}>
+                            <Button variant='contained' color='secondary' onClick={this.setRedirect} disableElevation>
                                 Home
                             </Button>
                             </div>
-                            <div className="header-button">
-                                {this.props.routeMessagesButton()}
-                            </div>
+                            {this.props.createRouteButton('/messages', 'Messages')}
+                            {this.props.createRouteButton('/game', 'Game')}
                         </Toolbar>
                     </AppBar>
-                </ThemeProvider>
             </div>
             
         );

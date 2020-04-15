@@ -1,41 +1,47 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchJoke } from '../actions';
+import { fetchJoke, fetchNasa } from '../actions';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.scss';
 import MessageCard from '../Components/Cards/MessageCard/MessageCard';
 import InfoCard from '../Components/Cards/InfoCard/InfoCard';
-import { Container, ListItemText, ListItem, Button } from '@material-ui/core';
+import { Container, ListItemText, ListItem, Button, ThemeProvider, createMuiTheme } from '@material-ui/core';
 import Header from '../Components/Header/Header';
 import Messages from '../Views/Messages/Messages';
-import { JodResponse} from '../interface'
+import { JodResponse, NASA_APOD, API_KEY, NasaResponse} from '../interface'
+import Game from '../Components/Game/Game';
 
-let aboutMe = `
-              My name is Aslak Frafjord Skailand and I am an 25 year old man.
-              I have studied computer engineering at the university of Ager for three years, now I currently work as a
-              front-end developer at Altibox. This is my website, here you can find my contact info and CV. I will also
-              try to post other things that I find interesting! :-)
-              `
-
-let joke = `
-            Did you know the first French fries weren't actually cooked in France? \n\n They were cooked in Greece.
-            `
+const aslak = 'https://scontent.fosl4-2.fna.fbcdn.net/v/t1.0-9/86754935_10156801609966657_8731657504766820352_o.jpg?_nc_cat=101&_nc_sid=09cbfe&_nc_ohc=ZgW6BRe4wTwAX9sBp5i&_nc_ht=scontent.fosl4-2.fna&oh=3d1cb0a15ff20152302c7835e6079d78&oe=5EBD2404';
 
 type Props = {
   payload: string,
   loading: boolean,
+  nasaLoading: boolean,
   getJoke: Function,
-  json: JodResponse
+  getApod: Function,
+  json: JodResponse,
+  nasaJson: NasaResponse
 }
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#3d5afe',
+    },
+    secondary: {
+      main: '#637bfe',
+    },
+  },
+});
 
 class App extends React.Component<Props, {}>{
   componentDidMount(){
-    console.log(this.props.getJoke());
+    this.props.getJoke();
+    this.props.getApod(NASA_APOD, API_KEY);
   }
 
-  routeTo = (route: string) => {
-    console.log(route);
-  }
+  
 
   routeMessages = () => {
     return(
@@ -50,7 +56,21 @@ class App extends React.Component<Props, {}>{
     )
   }
 
-  routeMessagesButton = () => {
+  createRouteButton = (linkTo: string, title: string) => {
+    return(
+      <>
+      <div className="header-button">
+        <Link to={linkTo}>
+          <Button variant='contained' color='secondary' disableElevation>
+            {title}
+          </Button>
+        </Link>
+      </div>
+      </>
+    )
+  }
+
+  routeGame = () => {
     return(
       <>
         <Link to='/messages'>
@@ -61,22 +81,26 @@ class App extends React.Component<Props, {}>{
       </>
     )
   }
+  
 
   render(){
     return ( 
       <Router>
         <div className='App'>
-          <Header routeMessages={this.routeMessages} routeMessagesButton={this.routeMessagesButton}/>
-            
+        <ThemeProvider theme={theme}>
+          <Header routeMessages={this.routeMessages} createRouteButton={this.createRouteButton}/>
             <Switch>)
               <Route exact path='/'>
                 <Container maxWidth='sm'>
                   <div className='please-hire-me'>
-                    <InfoCard title='React is cool' info={aboutMe}/>
+                    <InfoCard title='Hi!' info='This is me.' imageUrl={aslak}/>
                     <MessageCard />
                     {this.props.loading ?
                       null :
                       <InfoCard title={this.props.json.contents.jokes[0].joke.title} info={this.props.json.contents.jokes[0].joke.text}/>}
+                    {this.props.nasaLoading ?
+                      null :
+                      <InfoCard title={this.props.nasaJson.title} info={this.props.nasaJson.explanation} imageUrl={this.props.nasaJson.url}/>}
                   </div>
                 </Container>
               </Route>
@@ -84,8 +108,12 @@ class App extends React.Component<Props, {}>{
                 <Messages />
               </Route>
             </Switch>
+          </ThemeProvider>
 
         </div>
+        <Route path='/game'>
+          <Game/>
+        </Route>
       </Router>
     );
   }
@@ -95,10 +123,12 @@ const mapStateToProps = (state: any) => {
   return{
     payload: state.payload,
     loading: state.loading,
-    json: state.json
+    json: state.json,
+    nasaLoading: state.nasaLoading,
+    nasaJson: state.nasaJson
   }
 }
 
-const mapDispatchToProps = { getJoke: fetchJoke}
+const mapDispatchToProps = { getJoke: fetchJoke, getApod: fetchNasa}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
