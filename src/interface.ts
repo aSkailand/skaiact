@@ -8,6 +8,14 @@ export interface MessageResponse {
     date: string
 }
 
+export interface PlayerResponse {
+    _id: string,
+    name: string,
+    number: number,
+    position: string,
+    team: string
+}
+
 export interface JodResponse {
     success: {
         total: number

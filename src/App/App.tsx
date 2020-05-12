@@ -10,6 +10,7 @@ import Header from '../Components/Header/Header';
 import Messages from '../Views/Messages/Messages';
 import { JodResponse, NASA_APOD, API_KEY, NasaResponse} from '../interface'
 import Game from '../Components/Game/Game';
+import Fantasy from '../Views/Messages/Fantasy';
 
 const aslak = 'https://scontent.fosl4-2.fna.fbcdn.net/v/t1.0-9/86754935_10156801609966657_8731657504766820352_o.jpg?_nc_cat=101&_nc_sid=09cbfe&_nc_ohc=ZgW6BRe4wTwAX9sBp5i&_nc_ht=scontent.fosl4-2.fna&oh=3d1cb0a15ff20152302c7835e6079d78&oe=5EBD2404';
 
@@ -106,6 +107,9 @@ class App extends React.Component<Props, {}>{
               </Route>
               <Route path='/messages'>
                 <Messages />
+              </Route>
+              <Route path='/fantasy'>
+                <Fantasy />
               </Route>
             </Switch>
           </ThemeProvider>

@@ -1,4 +1,5 @@
 import React from 'react';
+import './Game.scss'
 
 
 export default class Game extends React.Component{

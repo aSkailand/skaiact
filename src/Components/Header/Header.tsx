@@ -51,6 +51,7 @@ export default class Header extends React.Component<Props> {
                             </div>
                             {this.props.createRouteButton('/messages', 'Messages')}
                             {this.props.createRouteButton('/game', 'Game')}
+                            {this.props.createRouteButton('/fantasy', 'Fantasy Div 5 Rog (KAFAEN E PL)')}
                         </Toolbar>
                     </AppBar>
             </div>
