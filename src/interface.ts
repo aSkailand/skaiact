@@ -2,6 +2,11 @@ export const API_KEY = 'SoRkxWOY1USb2nQbIxUL2FUSpSDgmvmumBXiktY7';
 
 export const NASA_APOD = 'https://api.nasa.gov/planetary/apod';
 
+export interface RegisterUserType {
+    email: string,
+    password: string
+}
+
 export interface MessageResponse {
     _id: string,
     message: string,

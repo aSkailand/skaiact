@@ -1,6 +1,6 @@
-import { REQUEST_JOKE, RECEIVED_JOKE, REQUEST_POST, RECEIVED_POST}from "./actions";
+import { REQUEST_JOKE, RECEIVED_JOKE, REQUEST_POST, RECEIVED_POST, REGISTER_USER_IN_PROGRESS, USER_REGISTERED}from "./actions";
 
-const initialState = {loading: true, nasaLoading: true};
+const initialState = {loading: true, nasaLoading: true, registered: false};
 
 export function app(state = initialState, action: any){
     switch(action.type){
@@ -25,6 +25,16 @@ export function app(state = initialState, action: any){
                 ...state,
                 nasaJson: action.nasaJson,
                 nasaLoading: false,
+            }
+        case REGISTER_USER_IN_PROGRESS:
+            return{
+                ...state,
+                registered: false
+            }
+        case USER_REGISTERED:
+            return{
+                ...state,
+                registered: true
             }
         default:
             return state;

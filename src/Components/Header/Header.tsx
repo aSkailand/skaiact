@@ -1,9 +1,7 @@
 import React from 'react';
 import './Header.scss';
 import Drawer from '../Drawer/Drawer';
-import { AppBar, Toolbar, Button, ListItem, List } from '@material-ui/core';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
+import { AppBar, Toolbar, Button } from '@material-ui/core';
 import { Redirect } from 'react-router';
 
 interface Props {

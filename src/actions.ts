@@ -1,3 +1,4 @@
+import { RegisterUserType } from './interface';
 
 /*
  * Action Types
@@ -6,10 +7,21 @@ export const REQUEST_JOKE = 'REQUEST_JOKE';
 export const RECEIVED_JOKE = 'RECEIVED_JOKE';
 export const REQUEST_POST = 'REQUEST_POST';
 export const RECEIVED_POST = 'RECEIVED_POST';
+export const REGISTER_USER_IN_PROGRESS = 'REGISTER_USER_IN_PROGRESS';
+export const USER_REGISTERED = 'USER_REGISTERED';
  
 /*
  * Action Creator
  */
+
+export const registerUserInProgress = () => ({
+    type: REGISTER_USER_IN_PROGRESS,
+});
+
+export const userRegistered = () => ({
+    type: USER_REGISTERED,
+})
+ 
 export const requestJoke = () => ({
     type: REQUEST_JOKE,
 });
@@ -27,6 +39,26 @@ export const receivedPost = (nasaJson: any) => ({
     type: RECEIVED_POST,
     nasaJson: nasaJson
 })
+
+export function registerUser(email: string, pw: string){
+    return async function(dispatch: any){
+        dispatch(registerUserInProgress());
+        return await fetch('http://localhost:8000/register', {
+            mode: 'cors',   
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: pw
+            })
+        }).then(() => {
+            dispatch(userRegistered());
+        });
+    }
+}
 
 export function fetchJoke(){
     return async function(dispatch: any){
