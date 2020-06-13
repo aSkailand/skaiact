@@ -1,3 +1,5 @@
+export const SKAIEND = "http://167.172.53.222:8080";
+
 export const API_KEY = 'SoRkxWOY1USb2nQbIxUL2FUSpSDgmvmumBXiktY7';
 
 export const NASA_APOD = 'https://api.nasa.gov/planetary/apod';

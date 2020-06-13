@@ -4,6 +4,7 @@ import { CardContent, CardActions, Typography, Snackbar } from '@material-ui/cor
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import TextArea from '@material-ui/core/TextareaAutosize';
+import { SKAIEND } from '../../../interface';
 
 
 interface Props {
@@ -36,7 +37,8 @@ export default class MessageCard extends React.Component<Props, State> {
     }
 
     handleSubmit = async() => {
-        await fetch('http://localhost:8000/notes', {
+        console.log(SKAIEND);
+        await fetch(SKAIEND + '/notes', {
             mode: 'cors',   
             method: 'POST',
             headers: {

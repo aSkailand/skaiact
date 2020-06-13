@@ -12,8 +12,9 @@ import { JodResponse, NASA_APOD, API_KEY, NasaResponse} from '../interface'
 import Game from '../Components/Game/Game';
 import Fantasy from '../Views/Messages/Fantasy';
 import Register from '../Views/Register';
+import aslakBilde from '../aslak.jpg';
 
-const aslak = 'https://scontent.fosl4-2.fna.fbcdn.net/v/t1.0-9/86754935_10156801609966657_8731657504766820352_o.jpg?_nc_cat=101&_nc_sid=09cbfe&_nc_ohc=ZgW6BRe4wTwAX9sBp5i&_nc_ht=scontent.fosl4-2.fna&oh=3d1cb0a15ff20152302c7835e6079d78&oe=5EBD2404';
+
 
 type Props = {
   payload: string,
@@ -95,7 +96,7 @@ class App extends React.Component<Props, {}>{
               <Route exact path='/'>
                 <Container maxWidth='sm'>
                   <div className='please-hire-me'>
-                    <InfoCard title='Hi!' info='This is me.' imageUrl={aslak}/>
+                    <InfoCard title='Hi!' info='This is me.' imageUrl={aslakBilde}/>
                     <MessageCard />
                     {this.props.loading ?
                       null :

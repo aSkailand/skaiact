@@ -1,4 +1,4 @@
-import { RegisterUserType } from './interface';
+import { RegisterUserType, SKAIEND } from './interface';
 
 /*
  * Action Types
@@ -43,7 +43,7 @@ export const receivedPost = (nasaJson: any) => ({
 export function registerUser(email: string, pw: string){
     return async function(dispatch: any){
         dispatch(registerUserInProgress());
-        return await fetch('http://localhost:8000/register', {
+        return await fetch(SKAIEND + '/register', {
             mode: 'cors',   
             method: 'POST',
             headers: {

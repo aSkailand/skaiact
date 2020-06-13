@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageResponse } from '../../interface';
+import { MessageResponse, SKAIEND } from '../../interface';
 import InfoCard from '../../Components/Cards/InfoCard/InfoCard';
 import '../../Components/Cards/Cards.scss';
 import '../../App/App.scss'
@@ -18,7 +18,8 @@ export default class Messages extends React.Component<{}, State> {
     }
 
     componentDidMount(){
-            fetch('http://localhost:8000/notes', {method: 'GET',})
+            console.log(SKAIEND + '/notes');
+            fetch(SKAIEND + '/notes', {method: 'GET',})
                 .then((res) => res.json())
                 .then((data) => {
                     console.log(data);

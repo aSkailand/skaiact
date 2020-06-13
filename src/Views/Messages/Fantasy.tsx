@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlayerResponse } from '../../interface';
+import { PlayerResponse, SKAIEND } from '../../interface';
 import InfoCard from '../../Components/Cards/InfoCard/InfoCard';
 import '../../Components/Cards/Cards.scss';
 import '../../App/App.scss'
@@ -18,7 +18,7 @@ export default class Fantasy extends React.Component<{}, State> {
     }
 
     componentDidMount(){
-            fetch('http://localhost:8000/players', {method: 'GET',})
+            fetch(SKAIEND + '/players', {method: 'GET',})
                 .then((res) => res.json())
                 .then((data) => {
                     console.log(data);
