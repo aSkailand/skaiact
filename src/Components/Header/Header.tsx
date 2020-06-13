@@ -12,8 +12,23 @@ interface Props {
 
 export default class Header extends React.Component<Props> {  
     state = {
-        redirect: false
-    }  
+        redirect: false,
+        windowWidth: 0
+    }
+    
+    componentDidMount(){
+        this.setState({
+            windowWidth: window.innerWidth
+        })
+        window.addEventListener('resize', this.onResize);
+    }
+
+    onResize = () => {
+        this.setState({
+            windowWidth: window.innerWidth
+        })
+    }
+    
     renderLeftContent() {
         return (
             <div className="header-left">
@@ -47,9 +62,8 @@ export default class Header extends React.Component<Props> {
                                 Home
                             </Button>
                             </div>
-                            {this.props.createRouteButton('/messages', 'Messages')}
-                            {this.props.createRouteButton('/game', 'Game')}
-                            {this.props.createRouteButton('/fantasy', 'Fantasy Div 5 Rog (KAFAEN E PL)')}
+                            {(this.state.windowWidth > 760) ? this.props.createRouteButton('/messages', 'Messages') : null}
+                            {this.props.createRouteButton('/fantasy', 'Fantasy')}
                         </Toolbar>
                     </AppBar>
             </div>
