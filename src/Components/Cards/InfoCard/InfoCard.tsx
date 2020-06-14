@@ -10,11 +10,26 @@ interface Props {
 }
 
 export default class MessageCard extends React.Component<Props> {
+    
+    renderMedia(youtube: boolean) {
+        if (youtube) {
+            return <CardMedia component="iframe" height="140" src={this.props.imageUrl}/>
+        } else {
+            return <CardMedia component="img" height="140" image={this.props.imageUrl}/>
+        }
+    }
+
     render(){
+        var youtubeLink: boolean = false;
+        if (this.props.imageUrl) {
+            youtubeLink = this.props.imageUrl.includes('youtube');
+        }
+
         return(
             <div className="card-message">
                 <Card raised={true}>
-                    {this.props.imageUrl ? <CardMedia component="img" height="140" image={this.props.imageUrl}/>: null}
+                    {this.props.imageUrl ?
+                       this.renderMedia(youtubeLink) : null}
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
                             {this.props.title}
