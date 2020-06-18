@@ -1,6 +1,6 @@
 # Docker Image which is used as foundation to create
 # a custom Docker Image with this Dockerfile
-FROM node:10
+FROM node:alpine as build
  
 # A directory within the virtualized Docker environment
 # Becomes more relevant when using Docker Compose later
@@ -20,3 +20,10 @@ EXPOSE 3000
  
 # Finally runs the application
 CMD [ "npm", "start" ]
+
+FROM nginx:alpine
+COPY --from=build /root/dev/skaiact/build /usr/share/nginx.html
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx/nginx.conf /etc/nginx/conf.d
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
