@@ -22,6 +22,7 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
+    "deploy:prod": "rsync -avzhe ssh --progress ./public/* root@167.172.53.222:/root/dev/skaiapp.no",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
