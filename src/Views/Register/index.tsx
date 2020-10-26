@@ -1,6 +1,6 @@
 import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
-import { InputLabel, Input, FormHelperText, Button, CardActions, CardContent, Typography, Link } from '@material-ui/core';
+import { InputLabel, Input, FormHelperText, Button, CardActions, CardContent, Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import './index.scss';
@@ -9,7 +9,8 @@ import { registerUser } from '../../actions';
 import { Redirect } from 'react-router-dom';
 
 interface Props {
-    addUser?: (email: string, pw: string) => Promise<void>
+    addUser: (email: string, pw: string) => Promise<void>
+    registered: boolean;
 }
 
 interface State {
@@ -42,16 +43,15 @@ class Register extends React.Component<Props, State> {
     }
 
     register = () => {
-        this.props.addUser!(this.state.email, this.state.pw)
+        this.props.addUser(this.state.email, this.state.pw)
         .then(() => {
-            alert('User created!');
-            this.setState({redirect: true});
+            console.log(this.props.registered);
         });
     }
 
     render(){
         return(
-                <>
+                <div className="register-container">
                     {this.state.redirect ? <Redirect to='/'/> : null}
                     <Card className="register" elevation={3}>
                         <CardContent>
@@ -81,7 +81,7 @@ class Register extends React.Component<Props, State> {
                             </Grid>
                         </CardContent>
                     </Card>
-                </>
+                </div>
         );
     }
 }

@@ -1,6 +1,15 @@
-import { REQUEST_JOKE, RECEIVED_JOKE, REQUEST_POST, RECEIVED_POST, REGISTER_USER_IN_PROGRESS, USER_REGISTERED}from "./actions";
+import {
+    REQUEST_JOKE, RECEIVED_JOKE, REQUEST_POST, RECEIVED_POST,
+    REGISTER_USER_IN_PROGRESS, USER_REGISTERED, REQUEST_WEATHER,
+    RECEIVED_WEATHER
+} from "./actions";
 
-const initialState = {loading: true, nasaLoading: true, registered: false};
+const initialState = {
+        loading: true,
+        nasaLoading: true,
+        registered: false,
+        weatherLoading: true,
+    };
 
 export function app(state = initialState, action: any){
     switch(action.type){
@@ -25,17 +34,28 @@ export function app(state = initialState, action: any){
                 ...state,
                 nasaJson: action.nasaJson,
                 nasaLoading: false,
-            }
+            };
         case REGISTER_USER_IN_PROGRESS:
             return{
                 ...state,
                 registered: false
-            }
+            };
         case USER_REGISTERED:
             return{
                 ...state,
-                registered: true
-            }
+                registered: action.registered
+            };
+        case REQUEST_WEATHER:
+            return {
+                ...state,
+                weatherLoading: true
+            };
+        case RECEIVED_WEATHER:
+            return {
+                ...state,
+                weatherData: action.weatherJson,
+                weatherLoading: false
+            };
         default:
             return state;
     }

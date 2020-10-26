@@ -37,6 +37,7 @@ export default class Header extends React.Component<Props> {
         );
     };
 
+
     setRedirect = () => {
         this.setState({
             redirect: true

@@ -1,4 +1,4 @@
-export const SKAIEND = "http://161.35.172.89:8080";
+export const SKAIEND = "http://localhost:8000";
 
 export const API_KEY = 'SoRkxWOY1USb2nQbIxUL2FUSpSDgmvmumBXiktY7';
 
@@ -49,5 +49,25 @@ export interface NasaResponse {
     url: string,
 }
 
+export interface LoginErrorResponse {
+    error: string
+}
 
+export interface WeatherResponse {
+    properties: {
+        timeseries: TimeSeries[]
+    }
+}
+
+interface TimeSeries {
+    data: {
+        next_6_hours: {
+            details: {
+                air_temperature_max: number,
+                air_temperature_min: number
+            }
+        }
+    },
+    time: string
+}
 

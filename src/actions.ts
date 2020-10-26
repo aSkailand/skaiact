@@ -1,4 +1,4 @@
-import { RegisterUserType, SKAIEND } from './interface';
+import { SKAIEND, LoginErrorResponse } from './interface';
 
 /*
  * Action Types
@@ -9,6 +9,8 @@ export const REQUEST_POST = 'REQUEST_POST';
 export const RECEIVED_POST = 'RECEIVED_POST';
 export const REGISTER_USER_IN_PROGRESS = 'REGISTER_USER_IN_PROGRESS';
 export const USER_REGISTERED = 'USER_REGISTERED';
+export const REQUEST_WEATHER = 'REQUEST_WEATHER';
+export const RECEIVED_WEATHER = 'RECEIVED_WEATHER';
  
 /*
  * Action Creator
@@ -18,9 +20,11 @@ export const registerUserInProgress = () => ({
     type: REGISTER_USER_IN_PROGRESS,
 });
 
-export const userRegistered = () => ({
+export const userRegistered = (registered: boolean) => ({
     type: USER_REGISTERED,
-})
+    registered: registered
+});
+
  
 export const requestJoke = () => ({
     type: REQUEST_JOKE,
@@ -38,12 +42,22 @@ export const requestPost = () => ({
 export const receivedPost = (nasaJson: any) => ({
     type: RECEIVED_POST,
     nasaJson: nasaJson
-})
+});
+
+export const requestWeatherData = () => ({
+    type: REQUEST_WEATHER
+});
+
+export const receivedWeatherData = (weatherJson: any) => ({
+    type: RECEIVED_WEATHER,
+    weatherJson: weatherJson
+});
 
 export function registerUser(email: string, pw: string){
     return async function(dispatch: any){
         dispatch(registerUserInProgress());
-        return await fetch(SKAIEND + '/register', {
+        let url = SKAIEND + '/register';
+        return await fetch(url, {
             mode: 'cors',   
             method: 'POST',
             headers: {
@@ -54,8 +68,15 @@ export function registerUser(email: string, pw: string){
                 email: email,
                 password: pw
             })
-        }).then(() => {
-            dispatch(userRegistered());
+        })
+        .then(response => response.json())
+        .then((jsonResponse: LoginErrorResponse) => {
+            console.log('error: ' + jsonResponse.error);
+            if (jsonResponse) {
+                dispatch(userRegistered(false));
+            } else {
+                dispatch(userRegistered(true));
+            }
         });
     }
 }
@@ -75,18 +96,31 @@ export function fetchJoke(){
 }
 
 export function fetchNasa(url: string, apikey: string){
-    return async function(dispatch:any){
+    return async function(dispatch: any) {
         dispatch(requestPost());
         return fetch(url + '?api_key=' + apikey, {method: 'GET'})
         .then(
             nasaResponse => nasaResponse.json(),
             error => console.log('An error occured.', error),
         ).then((nasaJson) => {
-            console.log(nasaJson);
             dispatch(receivedPost(nasaJson));
-        },
+        }
         );
     };
+}
+
+export function fetchWeatherData(){
+    return async function(dispatch: any){
+        dispatch(requestWeatherData());
+        return fetch('https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=50&lat=58.952&lon=5.731', {method: 'GET',})
+        .then(
+            response => response.json(),
+        ).then((resJson) => {
+            console.log(resJson);
+            
+            dispatch(receivedWeatherData(resJson));
+          });
+    }
 }
 
 
