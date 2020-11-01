@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.scss';
 import MessageCard from '../Components/Cards/MessageCard/MessageCard';
 import InfoCard from '../Components/Cards/InfoCard/InfoCard';
-import { Container, ListItemText, ListItem, Button, ThemeProvider, createMuiTheme, Grid } from '@material-ui/core';
+import { Container, ListItemText, ListItem, Button, ThemeProvider, createMuiTheme, Grid, CircularProgress } from '@material-ui/core';
 import Header from '../Components/Header/Header';
 import Messages from '../Views/Messages/Messages';
 import { JodResponse, NASA_APOD, API_KEY, NasaResponse, WeatherResponse} from '../interface'
@@ -22,11 +22,19 @@ type Props = {
   nasaLoading: boolean,
   getJoke: Function,
   getApod: Function,
-  getWeatherData: Function,
+  getWeatherData: (lat: string, lon: string) => void,
   json: JodResponse,
   nasaJson: NasaResponse,
   weatherData: WeatherResponse,
   weatherLoading: boolean
+}
+
+type State = {
+  latitude: string,
+  lognitude: string,
+  hour: number,
+  minutes: number,
+  seconds: number
 }
 
 
@@ -41,14 +49,46 @@ const theme = createMuiTheme({
   },
 });
 
-class App extends React.Component<Props, {}>{
+
+
+class App extends React.Component<Props, State>{
+  state = {
+    latitude: '',
+    lognitude: '',
+    hour: new Date().getHours(),
+    minutes: new Date().getMinutes(),
+    seconds: new Date().getSeconds()
+  }
+  
   componentDidMount(){
     this.props.getJoke();
     this.props.getApod(NASA_APOD, API_KEY);
-    this.props.getWeatherData();
+    this.weatherData();
+    setInterval(() => {
+      const now = new Date();
+      this.setState({
+        hour: now.getHours(),
+        minutes: now.getMinutes(),
+        seconds: now.getSeconds()
+      })
+    }, 1000);
   }
 
-  
+
+  weatherData = () => {
+    return navigator.geolocation.getCurrentPosition((position) => {
+      if (position) {
+        this.setState({
+          latitude: position.coords.latitude.toString(),
+          lognitude: position.coords.longitude.toString()
+        },
+        () => {
+          this.props.getWeatherData(this.state.latitude, this.state.lognitude);
+        });
+      }
+    });
+  }
+
 
   routeMessages = () => {
     return(
@@ -89,11 +129,21 @@ class App extends React.Component<Props, {}>{
     )
   }
   
+  get Spinner() {
+    return (
+      <Container>
+        <br/>
+        <CircularProgress />
+        <br/>
+      </Container>
+    );
+  }
 
   render(){
-    console.log(this.props.weatherLoading ? 'loading..' : this.props.weatherData.properties.timeseries );
+    let timeString = this.state.hour.toString().padStart(2, '0') + ':' + this.state.minutes.toString().padStart(2, '0') + ':' + this.state.seconds.toString().padStart(2, '0');
+    console.log(this.props.weatherLoading ? 'loading weather' : this.props.weatherData);
     
-    return ( 
+    return (
       <Router>
         <div className='App'>
         <ThemeProvider theme={theme}>
@@ -101,33 +151,54 @@ class App extends React.Component<Props, {}>{
             <Switch>)
               <Route exact path='/'>
                 <Container maxWidth='lg'>         
-                <Grid container spacing={3}>
-                  <Grid item xs={6}>
-                    <div className='please-hire-me'>
-          
-                      <InfoCard title='Hi!' info='This is me.' imageUrl={aslakBilde}/>
-                      <MessageCard />
-                      {this.props.loading ?
-                        null :
-                        <InfoCard title={this.props.json.contents.jokes[0].joke.title} info={this.props.json.contents.jokes[0].joke.text}/>}
-                      {this.props.nasaLoading ?
-                        null :
-                        <InfoCard title={this.props.nasaJson.title} info={this.props.nasaJson.explanation} imageUrl={this.props.nasaJson.url}/>}
-                    </div>
-                  </Grid>
-                  <Grid item xs={6}>
+                <Grid container spacing={3} >
+                  <Grid item lg={4} md={6} sm={12} xs={12}>
                     {this.props.weatherLoading ? 
-                    null : 
-                    <InfoCard
-                      title={'Temperatures next 6 hours'}
-                      info={
-                        'From ' + this.props.weatherData.properties.timeseries[12].time +
-                        ' Max temperature: ' + this.props.weatherData.properties.timeseries[12].data.next_6_hours.details.air_temperature_max.toString() + '\n' +
-                        'Min temperature: ' + this.props.weatherData.properties.timeseries[12].data.next_6_hours.details.air_temperature_min.toString()
-                        }/>}
+                      this.Spinner : 
+                      <InfoCard
+                        title={'Forecast for current hour. ' + timeString}
+                        info={
+                          this.props.weatherData.properties.timeseries[0].data.instant.details.air_temperature.toString() + '°C with ' + 
+                          this.props.weatherData.properties.timeseries[0].data.next_1_hours.details.precipitation_amount.toString() + 'mm ' +
+                          this.props.weatherData.properties.timeseries[0].data.next_1_hours.summary.symbol_code
 
+                        }
+                        link='https://api.met.no/weatherapi/'
+                      />
+                    }
                   </Grid>
+                  <Grid item lg={4} md={6} sm={12} xs={12}>
+                    <InfoCard
+                      title='Hi!'
+                      info='This is me.'
+                      imageUrl={aslakBilde}
+                    />
                   </Grid>
+                  <Grid item lg={4} md={6} sm={12} xs={12}>
+                    <MessageCard />
+                  </Grid>
+                  <Grid item lg={6} md={6} sm={12} xs={12}>
+                    {this.props.loading ?
+                      this.Spinner :
+                      <InfoCard 
+                        title={this.props.json.contents.jokes[0].joke.title}
+                        info={this.props.json.contents.jokes[0].joke.text}
+                        link='https://jokes.one/api/joke/'
+                      />
+                    }
+                  </Grid>
+                  <Grid item lg={6} md={12} sm={12} xs={12}>
+                    {this.props.nasaLoading ?
+                      this.Spinner :
+                      <InfoCard
+                        title={this.props.nasaJson.title}
+                        info={this.props.nasaJson.explanation}
+                        imageUrl={this.props.nasaJson.url}
+                        link='https://api.nasa.gov/'
+                      />
+                    }
+                  </Grid>
+                </Grid>
                 </Container>
               </Route>
               <Route path='/messages'>
@@ -163,6 +234,9 @@ const mapStateToProps = (state: any) => {
   }
 }
 
-const mapDispatchToProps = { getJoke: fetchJoke, getApod: fetchNasa, getWeatherData: fetchWeatherData}
-
+const mapDispatchToProps = {
+  getJoke: fetchJoke,
+  getApod: fetchNasa,
+  getWeatherData: (lat: string, lon: string) => fetchWeatherData(lat, lon)
+}
 export default connect(mapStateToProps, mapDispatchToProps)(App);

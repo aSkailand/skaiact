@@ -109,10 +109,13 @@ export function fetchNasa(url: string, apikey: string){
     };
 }
 
-export function fetchWeatherData(){
+export function fetchWeatherData(lat: string, lon: string){
     return async function(dispatch: any){
         dispatch(requestWeatherData());
-        return fetch('https://api.met.no/weatherapi/locationforecast/2.0/complete.json?altitude=50&lat=58.952&lon=5.731', {method: 'GET',})
+        return fetch(`https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${lat}&lon=${lon}`,
+            {
+                method: 'GET',
+            })
         .then(
             response => response.json(),
         ).then((resJson) => {

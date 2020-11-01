@@ -56,6 +56,7 @@ export default class TemporaryDrawer extends React.Component<Props, State>{
                     {this.renderListItem('Email', 'mailto: aslakskailand@gmail.com', 'mail')}
                     {this.renderListItem('Phone', 'tel: +47 401 70 768', 'phone' )}
                     {this.renderListItem('LinkedIn', 'https://www.linkedin.com/in/aslak-frafjord-skailand-968a6a130', 'web', '_blank')}
+                    {this.renderListItem('GitHub', 'https://github.com/aSkailand', 'code')}
             </List>
         </div>
     );

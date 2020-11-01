@@ -1,12 +1,13 @@
 import React from 'react';
 import '../Cards.scss';
-import { CardContent, Typography, CardMedia } from '@material-ui/core';
+import { CardContent, Typography, CardMedia, CircularProgress, Link, Divider } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 
 interface Props {
     imageUrl?: string,
     title?: string,
     info: string,
+    link?: string,
 }
 
 export default class MessageCard extends React.Component<Props> {
@@ -31,12 +32,32 @@ export default class MessageCard extends React.Component<Props> {
                     {this.props.imageUrl ?
                        this.renderMedia(youtubeLink) : null}
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                            {this.props.title}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {this.props.info}
-                        </Typography>
+                        {
+                            this.props.info ?
+                            <>
+                            <Typography gutterBottom variant="h5" component="h2">
+                                {this.props.title}
+                            </Typography>
+                            <Typography variant="body1" color="textSecondary" component="p">
+                                {this.props.info}
+                            </Typography>
+                            <Divider />
+                            <br />
+                            {
+                                this.props.link ?
+                                
+                                <Typography variant='body2'>
+                                    <Link href={this.props.link}>
+                                        {this.props.link}
+                                    </Link>
+                                    
+                                </Typography> :
+                                null
+                            }
+                            </> : 
+                            <CircularProgress />
+                        }
+                        
                     </CardContent>
                 </Card>
             

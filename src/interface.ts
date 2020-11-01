@@ -61,10 +61,17 @@ export interface WeatherResponse {
 
 interface TimeSeries {
     data: {
-        next_6_hours: {
+        instant: {
             details: {
-                air_temperature_max: number,
-                air_temperature_min: number
+                air_temperature: number
+            }
+        }
+        next_1_hours: {
+            details: {
+                precipitation_amount: number
+            },
+            summary: {
+                symbol_code: string
             }
         }
     },

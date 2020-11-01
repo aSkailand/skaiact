@@ -71,7 +71,7 @@ export default class MessageCard extends React.Component<Props, State> {
             message="Message sent!"/>
             <Card raised={true}>
                 <CardContent>
-                    <Typography variant="h5" color="textSecondary">Send me a message! :-)</Typography>
+                    <Typography variant='h5' component='h2'>Send me a message! :-)</Typography>
                 <CardContent>
                     <TextArea className="text-area"rows={6} placeholder="message..." value={this.state.message} onChange={this.handleChange}></TextArea>
                 </CardContent>
