@@ -1,4 +1,4 @@
-export const SKAIEND = "http://localhost:8000";
+export const SKAIEND = "http://161.35.172.89:8080";
 
 export const API_KEY = 'SoRkxWOY1USb2nQbIxUL2FUSpSDgmvmumBXiktY7';
 
