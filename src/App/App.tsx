@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.scss';
 import MessageCard from '../Components/Cards/MessageCard/MessageCard';
 import InfoCard from '../Components/Cards/InfoCard/InfoCard';
-import { Container, ListItemText, ListItem, Button, ThemeProvider, createMuiTheme, Grid, CircularProgress } from '@material-ui/core';
+import { Container, ListItemText, ListItem, Button, ThemeProvider, createMuiTheme, Grid, CircularProgress, Divider } from '@material-ui/core';
 import Header from '../Components/Header/Header';
 import Messages from '../Views/Messages/Messages';
 import { JodResponse, NASA_APOD, API_KEY, NasaResponse, WeatherResponse} from '../interface'
@@ -13,6 +13,7 @@ import Game from '../Components/Game/Game';
 import Fantasy from '../Views/Messages/Fantasy';
 import Register from '../Views/Register';
 import aslakBilde from '../aslak.jpg';
+import Footer from '../Components/Footer/Footer';
 
 
 
@@ -199,6 +200,7 @@ class App extends React.Component<Props, State>{
                     }
                   </Grid>
                 </Grid>
+                
                 </Container>
               </Route>
               <Route path='/messages'>
@@ -216,7 +218,11 @@ class App extends React.Component<Props, State>{
         <Route path='/game'>
           <Game/>
         </Route>
-       
+        <Divider
+          light
+          className="main-divider"
+        />
+        <Footer />
       </Router>
     );
   }
