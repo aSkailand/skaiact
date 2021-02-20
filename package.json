@@ -30,6 +30,11 @@
     "eject": "react-scripts eject",
     "pretty-quick": "pretty-quick"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
