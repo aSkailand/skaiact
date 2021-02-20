@@ -1,29 +1,23 @@
 .drawer {
-    display: flex;
-    align-items: center;
-    height: 100%;
-
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
-.list{
-    width: 250px !important;
+.list {
+  width: 250px !important;
 
-    i{
-        padding: 8px 8px 8px 8px;
-        color: #3f51b5;
-        
-    }
-    a{
-        color: #3f51b5;
-    }
-    
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-      };
+  i {
+    padding: 8px 8px 8px 8px;
+    color: #3f51b5;
+  }
+  a {
+    color: #3f51b5;
+  }
 
-
-    
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
 }
-
