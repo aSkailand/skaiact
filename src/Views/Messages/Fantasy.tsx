@@ -15,7 +15,13 @@ export default class Fantasy extends React.Component<{}, State> {
   };
 
   componentDidMount() {
-    fetch(SKAIEND + "/players", { method: "GET" })
+    fetch(SKAIEND + "/players", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

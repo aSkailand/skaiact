@@ -1,4 +1,4 @@
-export const SKAIEND = "https://161.35.172.89:8080";
+export const SKAIEND = "https://api.skaiapp.no";
 
 export const API_KEY = "SoRkxWOY1USb2nQbIxUL2FUSpSDgmvmumBXiktY7";
 
