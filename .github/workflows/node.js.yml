@@ -36,7 +36,7 @@ jobs:
     - name: upload artifact to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1
       with:
-        appId: ${{skaiapp}}
+        appId: ${{ secrets.SKAIAPP }}
         serviceCredentialsFileContent: ${{ secrets.FIREBASE_KEY }}
         groups: testers
         file: build
