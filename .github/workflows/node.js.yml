@@ -33,10 +33,9 @@ jobs:
         name: react-github-actions-build
         path: build
         
-    - name: upload artifact to Firebase App Distribution
-      uses: wzieba/Firebase-Distribution-Github-Action@v1
+    - uses: FirebaseExtended/action-hosting-deploy@v0
       with:
-        appId: ${{ secrets.SKAIAPP }}
-        serviceCredentialsFileContent: ${{ secrets.FIREBASE_KEY }}
-        groups: testers
-        file: build
+        repoToken: "${{ secrets.GITHUB_TOKEN }}"
+        firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+        expires: 30d
+        projectId: skaiapp
