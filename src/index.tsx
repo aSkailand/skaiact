@@ -11,7 +11,7 @@ import "typeface-roboto";
 import * as serviceWorker from "./serviceWorker";
 
 const store = createStore(app, applyMiddleware(thunk, logger));
-console.log("aslak e best ");
+
 ReactDOM.render(
   <div className="frontpage">
     <Provider store={store}>

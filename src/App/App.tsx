@@ -11,10 +11,10 @@ import {
   ListItem,
   Button,
   ThemeProvider,
-  createMuiTheme,
   Grid,
   CircularProgress,
   Divider,
+  createTheme,
 } from "@material-ui/core";
 import Header from "../Components/Header/Header";
 import Messages from "../Views/Messages/Messages";
@@ -52,7 +52,7 @@ type State = {
   seconds: number;
 };
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: "#3d5afe",
