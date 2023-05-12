@@ -1,4 +1,4 @@
-https://skaiapp.no
+Check it out [https://skaiapp.no](https://skaiapp.web.app/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
